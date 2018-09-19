@@ -237,7 +237,15 @@ var Connect = Track.extend(/** @lends Connect.prototype */ {
                 return cookies;
             }
 
-            return cookies[name] && decodeURIComponent(cookies[name]);
+            var decodeCookie;
+            try {
+                decodeCookie = cookies[name] && decodeURIComponent(cookies[name]);
+            } catch(err) {
+                console.error('COOKIE ERROR', err, name, cookies[name]);
+                decodeCookie = '';
+            }
+
+            return decodeCookie;
         }
 
         if ( null === value ) {
